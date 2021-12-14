@@ -9,28 +9,41 @@ import linecache
 
 model = linecache.getline("conf.py", 1)
 pk = 1
-book_line = randint(0, 5)
-book_title = linecache.getline('books.txt', book_line)
+
+
+def book_line_gen():
+    book_line = randint(0, 4)
+    return book_line
+
+
+def book_title_gen():
+    while True:
+        book_title = linecache.getline('books.txt', book_line_gen())
+        return book_title
 
 
 def year_gen():
-    year = randint(1900, 2000)
-    yield year
+    while True:
+        year = randint(1900, 2000)
+        return year
 
 
 def pages_gen():
-    pages = randint(1, 300)
-    yield pages
+    while True:
+        pages = randint(1, 300)
+        return pages
 
 
 def rating_gen():
-    rating = random.uniform(0.0, 5.1)
-    yield rating
+    while True:
+        rating = random.uniform(0.0, 5.1)
+        return rating
 
 
 def price_gen():
-    price = random.uniform(1.0, 25.6)
-    yield price
+    while True:
+        price = random.uniform(1.0, 25.6)
+        return price
 
 
 isbn13 = '13-32'  # Faker.isbn13()
@@ -42,7 +55,7 @@ def book_gen(pk=1):
         yield {"model": model,
                "pk": pk,
                "fields": {
-                   "title": book_title,
+                   "title": book_title_gen(),
                    "year": year_gen(),
                    "pages": pages_gen(),
                    "isbn13": isbn13,
@@ -65,7 +78,7 @@ def main():
 
 
 def _json():
-    jsonString = json.dumps(list_books)
+    jsonString = json.dumps(list_books, indent=4, ensure_ascii=False)
     jsonFile = open("data.json", "w")
     jsonFile.write(jsonString)
     jsonFile.close()
@@ -73,5 +86,6 @@ def _json():
 
 if __name__ == "__main__":
     main()
-    #_json()
-    print(list_books)
+    _json()
+    #print(list_books)
+    #print(price_gen())
