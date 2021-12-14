@@ -87,5 +87,3 @@ def _json():
 if __name__ == "__main__":
     main()
     _json()
-    #print(list_books)
-    #print(price_gen())
