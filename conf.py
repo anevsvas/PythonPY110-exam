@@ -1,1 +1,1 @@
-MODEL = "shop_final.book"
+shop_final.book
